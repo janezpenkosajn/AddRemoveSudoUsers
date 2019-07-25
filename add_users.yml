@@ -1,0 +1,35 @@
+# playbook for creating users with root privileges and adding public key file for ssh
+# enable passwordless sudo
+
+- hosts: all
+  tasks:
+    - name: Make sure we have a 'wheel' group
+      group:
+        name: wheel
+        state: present
+
+    - name: Allow 'wheel' group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Create new user with sudo privileges
+      user: 
+        name: "{{ item }}"
+        groups: wheel
+        append: yes
+        state: present
+        createhome: yes
+      with_items: "{{ usr }}"
+
+    - name: Set up authorized keys for the new user
+      authorized_key: 
+        user: "{{ item.0}}"
+        key: "{{ item.1}}"
+        state: present
+      with_together:
+        - "{{ usr }}"
+        - "{{ usr_cert }}"

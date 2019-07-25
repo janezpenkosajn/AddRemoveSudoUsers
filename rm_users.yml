@@ -1,0 +1,10 @@
+# playbook for removing users, their home directory, ssh keys
+
+- hosts: all
+  tasks:
+    - name: Remove user 
+      user: 
+        name: "{{ item }}"
+        state: absent
+        remove: yes
+      with_items: "{{ rm_usr }}"

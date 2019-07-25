@@ -1,0 +1,11 @@
+usr:
+    - james
+    - rachel
+
+usr_cert:
+    - ssh-rsa F8bch7fPe49LJXBwKAyqmW6DTD9gqtewu5ksdLpQKFSB8JuYq7XqLBsZPTpEB8Lh james@company.org
+    - ssh-rsa nKyqqjLhn5beKEUkj3XKzpLKX6mWPeFuM7qtmzzXfPjnssanv79HL3bSusmuEDbs rachel@company.org
+
+rm_usr:
+    - michael
+    - jerry
